@@ -1,4 +1,3 @@
-// src/components/login-form.tsx
 "use client";
 
 import { useState } from "react";
@@ -31,7 +30,12 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
       }
       const data = await res.json();
       console.log("Login realizado com sucesso", data);
-      // Aqui você pode salvar o token em localStorage ou atualizar seu context de autenticação
+      
+      // Guardar o token no localStorage
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("refreshToken", data.refreshToken);
+
+      // Redirecionar para o dashboard
       router.push("/dashboard");
     } catch (err: any) {
       setError(err.message);
@@ -84,7 +88,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
               </div>
               <Button
                 type="submit"
-                className="w-full  border-violet-500 hover:bg-violet-500 hover:text-white"
+                className="w-full border-violet-500 hover:bg-violet-500 hover:text-white"
               >
                 Entrar
               </Button>
@@ -94,6 +98,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
                 </span>
               </div>
               <div className="grid grid-cols-3 gap-4">
+                {/* Botões para login com redes sociais */}
                 <Button variant="outline" className="w-full">
                   {/* Ícone da Apple */}
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

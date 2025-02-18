@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-
 interface ServiceModalProps {
   onServiceCreated?: () => void;
 }
@@ -23,16 +22,22 @@ export function ServiceModal({ onServiceCreated }: ServiceModalProps) {
     e.preventDefault();
     setError(null);
     try {
+      // Obter o token do localStorage
+      const token = localStorage.getItem("token");
+
       const res = await fetch("/api/services", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
         body: JSON.stringify({ name, description, duration }),
       });
       if (!res.ok) {
         const data = await res.json();
         throw new Error(data.message || "Erro ao criar serviço");
       }
-      // Reiniciar o formulário y cerrar modal
+      // Reiniciar o formulário e fechar o modal
       setName("");
       setDescription("");
       setDuration(0);
