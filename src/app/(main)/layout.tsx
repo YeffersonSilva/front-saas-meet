@@ -2,7 +2,7 @@
 import "../globals.css";
 import { cn } from "@/lib/utils";
 import { MenuBar } from "@/components/menu-bar";
-//import { ThemeToggle } from "@/components/theme-toggle";
+// import { ThemeToggle } from "@/components/theme-toggle"; // Se desejar incluir
 
 export const metadata = {
   title: "Reserva Barber",
@@ -11,16 +11,14 @@ export const metadata = {
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR">
-      <body className={cn("bg-black text-violet-500 min-h-screen")}>
-        <header className="sticky top-0 z-50">
-          <div className="flex items-center justify-between p-4">
-          
-          </div>
+    <div className={cn("min-h-screen bg-black text-violet-500")}>
+      <header className="sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 py-2">
+          {/* Aqui você pode incluir o ThemeToggle se desejar */}
           <MenuBar />
-        </header>
-        <main>{children}</main>
-      </body>
-    </html>
+        </div>
+      </header>
+      <main className="max-w-7xl mx-auto px-4 py-4">{children}</main>
+    </div>
   );
 }
